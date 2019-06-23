@@ -1,8 +1,14 @@
+// react libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+// Third party libraries
+import './assets/styles/index.css';
+import 'semantic-ui-css/semantic.min.css';
+
+// components
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './tools/serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
