@@ -1,18 +1,16 @@
-# dependencies
 /node_modules
-/dist
-package-lock.json
-
-# production
-/build
-
-# misc
 .DS_Store
 .env
 .nyc_output
+/build
+/dist
+yarn-error.log
+package-lock.json
 
-#editors
 .vscode
 .idea/
 
-yarn-error.log
+/reports
+/tmp
+
+
