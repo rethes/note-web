@@ -1,5 +1,10 @@
-import React from 'react';
-import { Icon, Menu } from "semantic-ui-react";
+// react libraries
+import React from "react";
+
+// third-party libraries
+import { Menu, Icon } from 'semantic-ui-react';
+
+// styles
 import './SideBarItem.scss';
 
 export const SideBarItem = (props) => {
