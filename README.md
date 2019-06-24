@@ -11,7 +11,6 @@ This web application serves as a convenient window for note taking.
 - React
 - Semantic UI
 - NodeJS
-- Webpack
 
 ## Installation
 
@@ -27,7 +26,7 @@ You can setup this project on your machine locally by :
 4. Install [`yarn`](https://yarnpkg.com/en/docs/install#mac-stable).
 5. Run `yarn install` on the terminal to install dependecies.
 6. Create a `.env` file in the root directory of the application. Example of the content of a `.env` file is shown in the `.env.example`
-7. To start the application run `yarn start:dev`
+7. To start the application run `yarn start`
 
 ### Support or Contribution
 

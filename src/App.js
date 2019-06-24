@@ -5,13 +5,13 @@ import React from "react";
 import './assets/styles/App.css';
 
 // components
-import ButtonExampleButton  from "./btn";
+import SideBar from "./components/Sidebar";
 
 function App() {
   return (
-    <div>
-      <ButtonExampleButton/>
-    </div>
+    <>
+      <SideBar/>
+    </>
   );
 }
 

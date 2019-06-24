@@ -1,0 +1,20 @@
+.ui.card, .ui.cards>.card {
+  position: fixed;
+  top: 30%;
+  left: 25%;
+  width: 50%;
+
+}
+
+.ui.card>.content {
+  text-align: center;
+}
+
+.ui.card>.content>.header:not(.ui){
+  font-size: 3.125rem;
+  text-align: center;
+}
+
+.ui.card .meta :last-child {
+  font-size: 1.25rem;
+}
