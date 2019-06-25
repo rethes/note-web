@@ -6,11 +6,16 @@ import './assets/styles/App.css';
 
 // components
 import SideBar from "./components/Sidebar";
+import Routes from "./routes";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <SideBar/>
+      <Router>
+        <SideBar/>
+        <Routes/>
+      </Router>
     </>
   );
 }
