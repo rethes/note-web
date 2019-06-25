@@ -7,12 +7,12 @@ import './assets/styles/index.css';
 import 'semantic-ui-css/semantic.min.css';
 
 // components
-import Routes from "./routes/index";
+import App from "./App";
 
 //tools
 import * as serviceWorker from './tools/serviceWorker';
 
-ReactDOM.render(<Routes />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

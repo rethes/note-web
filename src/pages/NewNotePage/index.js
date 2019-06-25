@@ -8,15 +8,11 @@ import {Form, TextArea} from 'semantic-ui-react'
 // styles
 import './NewNotePage.scss';
 
-// components
-import SideBar from "../../components/Sidebar";
-
 class NewNotePage extends React.Component {
 
   render() {
     return (
       <>
-        <SideBar/>
         <Container textAlign='justified'>
           <Menu pointing secondary className="note-menu">
             <Menu.Item>
