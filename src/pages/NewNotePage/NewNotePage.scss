@@ -1,0 +1,52 @@
+.note-menu {
+  padding-top: 14px;
+  padding-right: 20px;
+}
+
+.last-updated {
+  display: flex;
+  padding-top: 14px;
+  padding-right: 20px;
+  font-size: 13px;
+  line-height: 24px;
+}
+
+.note-title {
+  color: #333;
+  outline: none;
+  width: 100%;
+}
+
+.ui.form input[type=text] {
+  color: #333;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 40px;
+  border: none;
+
+}
+
+.ui.form textarea {
+  padding-top: 0.785714em;
+  padding-left: 2em;
+  padding-right: 2em;
+  border: none;
+  font-size: 16px;
+}
+
+.note-description {
+  height: 50rem;
+}
+
+.ui.secondary.pointing.menu .item {
+  padding: .85714286em 0;
+}
+
+.ui.button {
+  cursor: pointer;
+  background: none;
+}
+
+.ui.button:hover {
+  background-color: #f2f2f2;
+}
