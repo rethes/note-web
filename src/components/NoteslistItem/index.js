@@ -2,19 +2,20 @@
 import React from 'react';
 
 // third-party libraries
-import {List, Button, Image} from 'semantic-ui-react'
+import {List} from 'semantic-ui-react';
+import {Link} from "react-router-dom";
 
 // styles
 import './NoteslistItem.scss';
 
-const NoteslistItem = () => {
-  return (
-    <List.Item>
-      <div className="listitem-header">
-        <List.Icon name='folder'/>
-        <List.Content verticalAlign='top'>Notes</List.Content>
-      </div>
-      <List.Content>
+const NoteslistItem = () => (
+  <List.Item>
+    <div className="listitem-header">
+      <List.Icon name='folder'/>
+      <List.Content verticalAlign='top'>Notes</List.Content>
+    </div>
+    <List.Content>
+      <Link to="/notes/1" replace>
         <List.Header as='h4'>Lorem Ipsum Today</List.Header>
         <List.Description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
           labore et dolore magna aliqua. Dictumst quisque sagittis purus sit amet volutpat consequat mauris nunc. Tellus
@@ -25,9 +26,9 @@ const NoteslistItem = () => {
           aliquam id. Suspendisse ultrices gravida dictum fusce ut placerat. Libero id faucibus nisl tincidunt eget
           nullam non.</List.Description>
         <List.Description>June 24</List.Description>
-      </List.Content>
-    </List.Item>
-  )
-};
+      </Link>
+    </List.Content>
+  </List.Item>
+);
 
 export default NoteslistItem;

@@ -3,14 +3,6 @@
   padding-right: 20px;
 }
 
-.last-updated {
-  display: flex;
-  padding-top: 14px;
-  padding-right: 20px;
-  font-size: 13px;
-  line-height: 24px;
-}
-
 .note-title {
   color: #333;
   outline: none;
@@ -38,15 +30,10 @@
   height: 50rem;
 }
 
-.ui.secondary.pointing.menu .item {
-  padding: .85714286em 0;
+.ui.secondary.menu .item {
+  padding-bottom: 0;
 }
 
-.ui.button {
-  cursor: pointer;
-  background: none;
-}
-
-.ui.button:hover {
-  background-color: #f2f2f2;
+.ui.secondary.menu .item {
+  padding-top: 0;
 }
