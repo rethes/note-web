@@ -1,0 +1,21 @@
+.ui.list .list>.item>.content, .ui.list>.item>.content {
+  line-height: 1.14285714em;
+  padding: .78571429em .92857143em;
+  margin: 0 .35714286em;
+  cursor: pointer;
+}
+
+.ui.list .list>.item .header, .ui.list>.item .header {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.ui.list .list>.item .description, .ui.list>.item .description {
+  overflow: hidden;
+  word-wrap: break-word;
+  margin-bottom: 5px;
+}

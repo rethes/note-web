@@ -2,15 +2,14 @@
 import React from 'react';
 
 // third-party libraries
-import { Link } from 'react-router-dom';
-import { Card } from 'semantic-ui-react'
+import {Link} from 'react-router-dom';
+import {Card} from 'semantic-ui-react'
 
 // styles
 import './PageNotFound.scss';
 
-class PageNotFound extends React.Component {
-  render() {
-    return (
+const PageNotFound = () => {
+  return (
     <Card>
       <Card.Content>
         <Card.Header> 404 </Card.Header>
@@ -23,8 +22,6 @@ class PageNotFound extends React.Component {
       </Card.Content>
     </Card>
   )
-    ;
-  }
-}
+};
 
 export default PageNotFound;
