@@ -2,36 +2,33 @@
 import React from 'react';
 
 // third-party libraries
-import {Dropdown, Menu} from 'semantic-ui-react';
+import {Menu} from 'semantic-ui-react';
 
 // styles
 import './NotesMenu.scss';
 
-const NotesMenu = () => (
-  <div className="note-container">
-    <Menu secondary className="note-menu">
-      <Menu.Item name='Notes' icon='folder' className="note-item"/>
-    </Menu>
+//components
+import DropdownMenu from "../DropdownMenu";
 
-    <Menu pointing secondary className="note-menu">
-      <Menu.Item className="note-item">
-        <b className="last-updated"> Last edited on Jun 24, 2019 </b>
-      </Menu.Item>
+const NotesMenu = () => {
+  return (
+    <div className="note-container">
+      <Menu secondary className="note-menu">
+        <Menu.Item name='Notes' icon='folder' className="note-item"/>
+      </Menu>
 
-      <Menu.Menu position='right'>
-        <Menu.Item>
-          <Dropdown name='More' icon='ellipsis vertical'>
-            <Dropdown.Menu icon={null}>
-              <Dropdown.Item text='New' as='a' href="/notes/new"/>
-              <Dropdown.Item text='Save as...'/>
-              <Dropdown.Divider/>
-              <Dropdown.Item text='My Notes'/>
-            </Dropdown.Menu>
-          </Dropdown>
+      <Menu pointing secondary className="note-menu">
+        <Menu.Item className="note-item">
+          <b className="last-updated"> Last edited on Jun 24, 2019 </b>
         </Menu.Item>
-      </Menu.Menu>
-    </Menu>
-  </div>
-);
+
+        <Menu.Menu position='right'>
+          <Menu.Item>
+            <DropdownMenu icon='ellipsis vertical' deleteTitle='Delete Note'/>
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+    </div>
+)};
 
 export default NotesMenu;
