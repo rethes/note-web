@@ -2,7 +2,7 @@
 import React from "react";
 
 // third-party libraries
-import { List, Divider, Menu } from 'semantic-ui-react';
+import {List, Divider, Menu} from 'semantic-ui-react';
 
 // styles
 import './NotesListPage.scss';

@@ -2,7 +2,7 @@
 import React from "react";
 
 // third-party libraries
-import { Menu, Icon } from 'semantic-ui-react';
+import {Menu, Icon} from 'semantic-ui-react';
 
 // styles
 import './SideBarItem.scss';
