@@ -1,13 +1,12 @@
 // react libraries
 import React from "react";
 
-// styles
-import './assets/styles/App.css';
+// third-party libraries
+import { BrowserRouter as Router } from "react-router-dom";
 
 // components
 import SideBar from "./components/Sidebar";
 import Routes from "./routes";
-import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (

@@ -1,3 +1,9 @@
+.list-item-header {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .ui.list .list>.item>.content, .ui.list>.item>.content {
   line-height: 1.14285714em;
   padding: .78571429em .92857143em;

@@ -1,28 +1,32 @@
 // react libraries
-import React from "react";
+import React from 'react';
 
 // third-party libraries
-import {Container, Input, Form, TextArea} from 'semantic-ui-react'
+import {Input, Form, TextArea} from 'semantic-ui-react'
+import moment from 'moment';
 
-// styles
+// scss
 import './NewNotePage.scss';
 
 // components
-import NotesMenu from "../../components/NotesMenu";
+import NotesMenu from '../../components/NotesMenu';
 
 class NewNotePage extends React.Component {
 
   render() {
     return (
-      <Container textAlign='justified'>
-        <NotesMenu/>
-
+      <div className="new-note-container">
+        <NotesMenu
+          notebook={"Notes"}
+          date={moment().format('MMM DD')}
+        />
         <Form>
           <Input className="note-title" focus placeholder='Title...'/>
           <TextArea className="note-description" placeholder='Start writing and tell us more...'
                     style={{minHeight: 100}} rows={12}/>
         </Form>
-      </Container>
+
+      </div>
     )
   }
 }
