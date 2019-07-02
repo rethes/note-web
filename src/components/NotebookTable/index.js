@@ -3,38 +3,41 @@ import React from 'react';
 
 // third-party libraries
 import {Table} from 'semantic-ui-react'
-import {Link} from "react-router-dom";
-// styles
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+// scss
 import './NotebookTable.scss';
 
 //components
-import DropdownMenu from "../DropdownMenu";
+import DropdownMenu from '../DropdownMenu';
+import NotesListItem from '../NotesListItem';
 
-const NotebookTable = () => {
-  return (
-    <Table.Body>
-      <Table.Row>
+const NotebookTable = (props) => (
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>
+        <Link to={`/notes/${props.id}`} replace>
+          {props.title}
+        </Link>
+      </Table.Cell>
+      <Table.Cell>{props.notesCount}</Table.Cell>
+      <Table.Cell> {props.author}</Table.Cell>
+      <Table.Cell>{props.updatedAt}</Table.Cell>
+      <Table.Cell>
+        <DropdownMenu icon='ellipsis horizontal' deleteTitle='Delete Notebook'/>
+      </Table.Cell>
+    </Table.Row>
+  </Table.Body>
+);
 
-        <Table.Cell
-          title={[
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore',
-            'et dolore magna aliqua.',
-          ].join(' ')}
-        >
-          <Link to="/notes" replace>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua.
-          </Link>
-        </Table.Cell>
-        <Table.Cell>10</Table.Cell>
-        <Table.Cell>john@gmail.com</Table.Cell>
-        <Table.Cell>June 23, 2018</Table.Cell>
-        <Table.Cell>
-          <DropdownMenu icon='ellipsis horizontal' deleteTitle='Delete Notebook'/>
-        </Table.Cell>
-      </Table.Row>
-    </Table.Body>
-  )
+NotesListItem.propTypes = {
+  id: PropTypes.string,
+  title: PropTypes.string,
+  notesCount: PropTypes.string,
+  author: PropTypes.string,
+  ownedBy: PropTypes.string,
+  updatedAt: PropTypes.string
 };
 
 export default NotebookTable;

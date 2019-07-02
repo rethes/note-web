@@ -1,10 +1,10 @@
 // react libraries
-import React from "react";
+import React from 'react';
 
 // third-party libraries
 import {Grid, Image, Header, List} from 'semantic-ui-react';
 
-// styles
+// scss
 import './DashboardPage.scss';
 
 class DashboardPage extends React.Component {

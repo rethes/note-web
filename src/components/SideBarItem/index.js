@@ -1,20 +1,20 @@
 // react libraries
-import React from "react";
+import React from 'react';
 
 // third-party libraries
 import {Menu, Icon} from 'semantic-ui-react';
 
-// styles
+// scss
 import './SideBarItem.scss';
 
 export const SideBarItem = (props) => {
-  const highlight = props.highlight ? 'highlight-item' : null;
+  const highlight = props.highlight ? "highlight-item" : null;
 
   return (
-    <Menu.Item className={['sidebar-item', highlight].join(' ')}>
-      <div className='sidebar-item-alignment-container'>
+    <Menu.Item className={["sidebar-item", highlight].join(" ")}>
+      <div className="sidebar-item-alignment-container">
         <span>
-          <Icon size='large' name={props.icon}/>
+          <Icon size="large" name={props.icon}/>
         </span>
         <span>
           {props.label}

@@ -1,11 +1,11 @@
 // react libraries
-import React from "react";
+import React from 'react';
 
 // third-party libraries
 import {Menu, Divider} from 'semantic-ui-react';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 
-// styles
+// scss
 import './SideBar.scss';
 
 // components

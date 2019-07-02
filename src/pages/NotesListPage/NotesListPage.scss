@@ -1,3 +1,5 @@
+@import '../../assets/scss/global';
+
 .ui.secondary.menu {
   margin-top: 4px;
 }
@@ -7,13 +9,7 @@
   letter-spacing: .03em;
 }
 
-.notelist-container{
+.note-list-container{
   margin-left: 21rem;
   margin-right: 4rem;
-}
-
-.listitem-header {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-start;
 }
