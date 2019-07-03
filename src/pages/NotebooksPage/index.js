@@ -2,8 +2,9 @@
 import React from 'react';
 
 // third-party libraries
-import {Menu, Button, Modal, Header, Image, Input, Table} from 'semantic-ui-react';
+import {Menu, Button, Modal, Header, Image, Input, Table, Icon, Message} from 'semantic-ui-react';
 import * as moment from 'moment';
+import cuid from 'cuid';
 
 // scss
 import './NotebooksPage.scss';
@@ -15,6 +16,97 @@ import NotebookTable from '../../components/NotebookTable';
 import data from '../../data/database';
 
 class NotebooksPage extends React.Component {
+
+  state = {
+    title: '',
+    disable: true,
+    loading: false,
+    open: false,
+    visible: false
+  };
+
+  /**
+   * This method handles what happens when the name value changes in the input field.
+   *
+   * @param {Event} event
+   *
+   * @returns {void}
+   */
+  onInputChange = (event) => {
+    let value = event.target.value;
+
+    this.setState({
+        title: value
+      },
+    );
+    this.handleDisableButton()
+  };
+
+  /**
+   * handles submit button when disabled
+   *
+   * @returns {void}
+   *
+   */
+  handleDisableButton = () => {
+    if (this.state.title.length > 1) {
+      this.setState({disable: false});
+    } else {
+      this.setState({disable: true});
+    }
+  };
+
+  /**
+   * handles opening of the modal
+   *
+   * @returns {void}
+   *
+   */
+  enableModal = () => {
+    this.setState({open: true, title: '', disable: true});
+  };
+
+  /**
+   * handles closing of the modal
+   *
+   * @returns {void}
+   *
+   */
+  close = () => {
+    this.setState({open: false, title: ''})
+  };
+
+  /**
+   * handles dismissing the toast message
+   *
+   * @returns {void}
+   *
+   */
+  handleDismiss = () => {
+    this.setState({visible: false})
+  };
+
+  /**
+   * Make the API call to add the note.
+   *
+   * @returns {void}
+   */
+  onSubmit = () => {
+    const newTitle = this.state.title;
+
+    const newNote = {
+      id: cuid(),
+      title: newTitle,
+      author: "user",
+      createdAt: moment().format(),
+      updatedAt: moment().format(),
+    };
+
+    data.notebooks.push(newNote);
+    this.close();
+    this.setState({visible: true})
+
+  };
 
   /**
    * Renders the notebook data
@@ -49,14 +141,23 @@ class NotebooksPage extends React.Component {
 
   render() {
     const notebookCount = data.notebooks.length;
-
+    const {open, closeOnEscape, closeOnDimmerClick} = this.state;
     return (
       <div className="notebook-container">
         <Menu secondary>
           <Menu.Item classname="notelist-header"> My Notebook List ({notebookCount})</Menu.Item>
           <Menu.Menu position='right'>
             <Modal
-              trigger={<Menu.Item icon='add' name='New Notebook'/>}
+              trigger={
+                <Button onClick={this.enableModal}>
+                  <Icon name='add'/>
+                  New Notebook
+                </Button>
+              }
+              open={open}
+              closeOnEscape={closeOnEscape}
+              closeOnDimmerClick={closeOnDimmerClick}
+              onClose={this.close}
             >
               <Modal.Header>Create A New Notebook</Modal.Header>
               <Modal.Content image>
@@ -65,20 +166,33 @@ class NotebooksPage extends React.Component {
                 <Modal.Description>
                   <Header>Notebooks are useful for grouping notes around a common topic.</Header>
                   <p>They can be anything you want.</p>
-                  <Input placeholder='Notebook Name...'/>
+                  <Input onChange={this.onInputChange} placeholder='Notebook Name...'/>
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>
-                <Button>
+                <Button
+                  onClick={this.close}
+                >
                   Cancel
                 </Button>
-                <Button color='green'>
-                  Continue
+                <Button color='green' onClick={this.onSubmit} disabled={this.state.disable}>
+                  Add
                 </Button>
+
               </Modal.Actions>
             </Modal>
           </Menu.Menu>
         </Menu>
+
+        {
+          this.state.visible ?
+            this.state.visible &&
+            < Message
+              onDismiss={this.handleDismiss}
+              color='olive'
+              header='Notebook was added successfully'
+            /> : null
+        }
 
         <Table selectable striped padded>
           <Table.Header>
@@ -90,6 +204,7 @@ class NotebooksPage extends React.Component {
               <Table.HeaderCell>Actions</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
+
           {this.renderAllNotebooks()}
         </Table>
       </div>
