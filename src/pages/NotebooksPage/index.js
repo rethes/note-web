@@ -94,7 +94,7 @@ class NotebooksPage extends React.Component {
   onSubmit = () => {
     const newTitle = this.state.title;
 
-    const newNote = {
+    const newNotebook = {
       id: cuid(),
       title: newTitle,
       author: "user",
@@ -102,7 +102,7 @@ class NotebooksPage extends React.Component {
       updatedAt: moment().format(),
     };
 
-    data.notebooks.push(newNote);
+    data.notebooks.push(newNotebook);
     this.close();
     this.setState({visible: true})
 
