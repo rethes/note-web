@@ -2,7 +2,7 @@
 import React from 'react';
 
 // third-party libraries
-import {Button, Dropdown, Header, Modal} from 'semantic-ui-react'
+import {Dropdown} from 'semantic-ui-react'
 
 // scss
 import './DropdownMenu.scss';
@@ -10,31 +10,8 @@ import './DropdownMenu.scss';
 const DropdownMenu = (props) => (
   <Dropdown icon={props.icon}>
     <Dropdown.Menu icon={null}>
-      <Dropdown.Item text='New' as='a' href="/notes/new"/>
-      <Dropdown.Item text='Save as...'/>
-      <Dropdown.Item>
-        <Modal
-          trigger={<Dropdown.Item text='Delete'/>}
-        >
-          <Modal.Header>{props.deleteTitle}</Modal.Header>
-          <Modal.Content image>
-            <Modal.Description>
-              <Header>Time to say goodbye.</Header>
-              <p>See Ya!</p>
-            </Modal.Description>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button>
-              Cancel
-            </Button>
-            <Button color={'red'}>
-              Delete
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </Dropdown.Item>
-      <Dropdown.Divider/>
-      <Dropdown.Item text='All Notes' as='a' href="/notes"/>
+      <Dropdown.Item text='Edit'/>
+      <Dropdown.Item text='Delete'/>
     </Dropdown.Menu>
   </Dropdown>
 );
