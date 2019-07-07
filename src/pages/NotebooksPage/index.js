@@ -2,7 +2,7 @@
 import React from 'react';
 
 // third-party libraries
-import {Menu, Button, Modal, Header, Image, Input, Table, Icon, Message} from 'semantic-ui-react';
+import {Menu, Table, Button, Icon, Message} from 'semantic-ui-react';
 import * as moment from 'moment';
 import cuid from 'cuid';
 
@@ -11,6 +11,7 @@ import './NotebooksPage.scss';
 
 // components
 import NotebookTable from '../../components/NotebookTable';
+import Modals from "../../components/Modals";
 
 //data
 import data from '../../data/database';
@@ -18,11 +19,16 @@ import data from '../../data/database';
 class NotebooksPage extends React.Component {
 
   state = {
-    title: '',
+    notebook: {
+      id: '',
+      title: '',
+      author: 'admin'
+    },
+    oldTitle: '',
     disable: true,
-    loading: false,
+    visible: false,
     open: false,
-    visible: false
+    isEditMode: false
   };
 
   /**
@@ -36,9 +42,14 @@ class NotebooksPage extends React.Component {
     let value = event.target.value;
 
     this.setState({
-        title: value
-      },
+      ...this.state,
+        notebook: {
+          id: this.state.notebook.id,
+          title: value,
+        }
+      }
     );
+
     this.handleDisableButton()
   };
 
@@ -49,7 +60,7 @@ class NotebooksPage extends React.Component {
    *
    */
   handleDisableButton = () => {
-    if (this.state.title.length > 1) {
+    if (this.state.notebook.title.length > 1) {
       this.setState({disable: false});
     } else {
       this.setState({disable: true});
@@ -63,17 +74,7 @@ class NotebooksPage extends React.Component {
    *
    */
   enableModal = () => {
-    this.setState({open: true, title: '', disable: true});
-  };
-
-  /**
-   * handles closing of the modal
-   *
-   * @returns {void}
-   *
-   */
-  close = () => {
-    this.setState({open: false, title: ''})
+    this.setState({open: true, notebook: {title: ''}, disable: true});
   };
 
   /**
@@ -87,12 +88,23 @@ class NotebooksPage extends React.Component {
   };
 
   /**
+   * handles closing of the modal
+   *
+   * @returns {void}
+   *
+   */
+  close = () => {
+    this.setState({open: false, notebook: {title: ''}, isEditMode: false})
+  };
+
+  /**
    * Make the API call to add the note.
    *
    * @returns {void}
    */
   onSubmit = () => {
-    const newTitle = this.state.title;
+    const newTitle = this.state.notebook.title;
+    const {isEditMode, notebook} = this.state;
 
     const newNotebook = {
       id: cuid(),
@@ -101,12 +113,80 @@ class NotebooksPage extends React.Component {
       createdAt: moment().format(),
       updatedAt: moment().format(),
     };
+    if (isEditMode) {
+      //look for the old notebook
+      const oldNotebook = data.notebooks.find(x => x.id === notebook.id);
 
-    data.notebooks.push(newNotebook);
+      //find the index of the existing notebook
+      const ind = data.notebooks.findIndex(x => x.id === oldNotebook.id);
+
+      //add the new notebook and remove the old
+      data.notebooks.splice(ind, 1, newNotebook);
+
+    } else {
+      data.notebooks.push(newNotebook);
+      this.setState({visible: true})
+    }
     this.close();
-    this.setState({visible: true})
-
   };
+
+  /**
+   * It deletes the selected note
+   *
+   * @returns {void}
+   */
+  deleteNotebook = (selectedNotebook) => {
+
+    //remove the existing notebook
+    const ind = data.notebooks.findIndex(notebook => notebook.id === selectedNotebook.id);
+
+    data.notebooks.splice(ind, 1);
+
+    this.setState({
+      ...this.state,
+      notebook: {
+        id: selectedNotebook.id,
+        title: selectedNotebook.title,
+      }
+    });
+  };
+
+  /**
+   * Populates the Edit Modal
+   *
+   * @param{object} selectedNotebook
+   */
+  populateEditModal = (selectedNotebook) => {
+
+    this.setState({
+      ...this.state,
+      notebook: {
+        id: selectedNotebook.id,
+        title: selectedNotebook.title,
+      },
+      isEditMode: true,
+      open: true,
+      disable: true
+    });
+  };
+
+  /**
+   * Renders the Edit and Delete hyperlinks
+   *
+   * @returns {JSX}
+   */
+  notebookAction = notebook => (
+    <>
+      <Button onClick={() => this.populateEditModal(notebook)}>
+        <Icon name="edit"/>
+        Edit
+      </Button>
+      <Button onClick={() => this.deleteNotebook(notebook)}>
+        <Icon name="delete"/>
+        Delete
+      </Button>
+    </>
+  );
 
   /**
    * Renders the notebook data
@@ -134,77 +214,77 @@ class NotebooksPage extends React.Component {
           notesCount={notesCount.length}
           author={notebookValue.author}
           updatedAt={moment(notebookValue.updatedAt).format('MMM DD, YYYY')}
+          renderNotebookModal={this.renderNotebookModal()}
+          notebookAction={this.notebookAction(notebookValue)}
         />
       )
     });
   };
 
+  /**
+   * Renders the modal for adding or editing request types
+   *
+   * @returns {JSX}
+   */
+  renderNotebookModal = () => {
+    const {open, closeOnEscape, closeOnDimmerClick, notebook} = this.state;
+
+    return (
+      <Modals
+        submitButton={this.state.isEditMode ? "Edit" : "Add"}
+        name={this.state.isEditMode ? "Rename Notebook" : "New Notebook"}
+        image={"https://res.cloudinary.com/do8ik6qe5/image/upload/v1561590488/note-app/jpm009-tapestry-1_1.jpg"}
+        header={this.state.isEditMode ? "Enter a new name for your Notebook." : "Notebooks are useful for grouping notes around a common topic."}
+        description={this.state.isEditMode ? "It can be anything you want." : "They can be anything you want."}
+        value={this.state.isEditMode ? notebook.title : "Notebook Name..."}
+        onSubmit={this.onSubmit}
+        onInputChange={this.onInputChange}
+        close={this.close}
+        open={open}
+        closeOnEscape={closeOnEscape}
+        closeOnDimmerClick={closeOnDimmerClick}
+        disabled={this.state.disable}
+      />
+    )
+  };
+
   render() {
     const notebookCount = data.notebooks.length;
-    const {open, closeOnEscape, closeOnDimmerClick} = this.state;
+
     return (
       <div className="notebook-container">
         <Menu secondary>
           <Menu.Item classname="notelist-header"> My Notebook List ({notebookCount})</Menu.Item>
           <Menu.Menu position='right'>
-            <Modal
-              trigger={
-                <Button onClick={this.enableModal}>
-                  <Icon name='add'/>
-                  New Notebook
-                </Button>
-              }
-              open={open}
-              closeOnEscape={closeOnEscape}
-              closeOnDimmerClick={closeOnDimmerClick}
-              onClose={this.close}
-            >
-              <Modal.Header>Create A New Notebook</Modal.Header>
-              <Modal.Content image>
-                <Image wrapped size='small'
-                       src='https://res.cloudinary.com/do8ik6qe5/image/upload/v1561590488/note-app/jpm009-tapestry-1_1.jpg'/>
-                <Modal.Description>
-                  <Header>Notebooks are useful for grouping notes around a common topic.</Header>
-                  <p>They can be anything you want.</p>
-                  <Input onChange={this.onInputChange} placeholder='Notebook Name...'/>
-                </Modal.Description>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button
-                  onClick={this.close}
-                >
-                  Cancel
-                </Button>
-                <Button color='green' onClick={this.onSubmit} disabled={this.state.disable}>
-                  Add
-                </Button>
-
-              </Modal.Actions>
-            </Modal>
+            <Button onClick={this.enableModal}>
+              <Icon name='add'/>
+              New Notebook
+            </Button>
+            {this.renderNotebookModal()}
           </Menu.Menu>
         </Menu>
 
         {
           this.state.visible ?
             this.state.visible &&
-            < Message
+            <Message
               onDismiss={this.handleDismiss}
-              color='olive'
-              header='Notebook was added successfully'
-            /> : null
+              color="Olive"
+              header="Notebook was added successfully"
+            />
+            : null
         }
 
-        <Table selectable striped padded>
+        <Table selectable striped padded compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Title</Table.HeaderCell>
+              <Table.HeaderCell width={7}>Title</Table.HeaderCell>
               <Table.HeaderCell>Notes</Table.HeaderCell>
               <Table.HeaderCell>Owned By</Table.HeaderCell>
               <Table.HeaderCell>Updated</Table.HeaderCell>
               <Table.HeaderCell>Actions</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-
           {this.renderAllNotebooks()}
         </Table>
       </div>
