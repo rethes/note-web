@@ -20,7 +20,7 @@ const NotebookTable = (props) => {
     <Table.Body>
       <Table.Row>
         <Table.Cell>
-          <Link to={`/notes/${id}`} replace>
+          <Link to={`/notebooks/${id}`} replace>
             {title}
           </Link>
         </Table.Cell>
