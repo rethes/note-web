@@ -53,9 +53,9 @@ class NotebookNotesPage extends React.Component {
 
       return notebookNotes.map((noteValue) => {
         return (
-          <List.Item>
+          <List.Item key={noteValue.id}>
             <List.Content>
-              <Link to={`/notes/${noteValue.id}`} replace>
+              <Link to={`/notes/${noteValue.id}`} replace >
                 <List.Header as='h4'>{noteValue.title}</List.Header>
                 <List.Description>{noteValue.description}</List.Description>
                 <List.Description>{moment(noteValue.updatedAt).format('MMM DD')}</List.Description>

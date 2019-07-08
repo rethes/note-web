@@ -10,11 +10,13 @@ import cuid from 'cuid';
 import './NewNotePage.scss';
 
 //data
-import data from "../../data/database";
+import data from '../../data/database';
 
 class NewNotePage extends React.Component {
+
   state = {
     notes: {
+      id: '',
       title: '',
       description: '',
       notebookId: '',
@@ -35,12 +37,13 @@ class NewNotePage extends React.Component {
     this.setState({
       notes: {
         ...this.state.notes,
+        id: this.props.match.params.id,
         [name]: value,
-        notebookId: this.props.match.params.id,
-      }
+        notebookId: this.props.match.params.notebookId,
+      },
     });
 
-    this.handleDisableButton()
+    this.handleDisableButton();
   };
 
   /**
@@ -58,6 +61,13 @@ class NewNotePage extends React.Component {
   };
 
   /**
+   * Check if the current component status is update.
+   *
+   * @returns {boolean}
+   */
+  isUpdating = () => this.props.location.pathname.includes('/edit');
+
+  /**
    * It redirects the user to notes list page
    *
    * @returns {void}
@@ -65,6 +75,9 @@ class NewNotePage extends React.Component {
 
   redirectToViewNotesPage = (id) => {
     return this.props.history.push(`/notes/${id}`);
+    // this.props.history.goBack();
+
+     // this.props.history.push(`/notes`);
   };
 
   /**
@@ -74,7 +87,7 @@ class NewNotePage extends React.Component {
    */
   getANotebook = () => {
     return data.notebooks.find((notebook) => {
-      return notebook.id === this.props.match.params.id;
+      return notebook.id === this.props.match.params.notebookId;
     });
   };
 
@@ -95,13 +108,45 @@ class NewNotePage extends React.Component {
       updatedAt: moment().format(),
     };
 
-    data.notes.push(newNote);
-    this.setState({visible: true});
-    this.redirectToViewNotesPage(newNote.id);
+    if (this.isUpdating()) {
+      const editNote = {
+        notebookId: notes.notebookId,
+        id: notes.id,
+        title: notes.title,
+        description: notes.description,
+        createdAt: moment().format(),
+        updatedAt: moment().format(),
+      };
+
+      //find the index of the existing note
+      const ind = data.notes.findIndex(x => x.id === notes.id);
+
+      //add the new note and remove the old
+      data.notes.splice(ind, 1, editNote);
+
+    } else {
+      data.notes.push(newNote);
+    }
+
+    this.redirectToViewNotesPage(notes.id);
   };
+
+  /**
+   * Get a note
+   *
+   * @returns {object}
+   */
+  getANote = () => {
+    return data.notes.find((note) => {
+      return note.id === this.props.match.params.id;
+    });
+  };
+
 
   render() {
     const selectedNotebook = this.getANotebook();
+
+    const selectedNote = this.getANote();
 
     return (
       <div className="new-note-container">
@@ -121,15 +166,17 @@ class NewNotePage extends React.Component {
             <Menu.Menu position='right'>
               <Button onClick={this.onSubmit} disabled={this.state.disable}>
                 <Icon name='add'/>
-                Add Note
+                {this.isUpdating() ? 'Update Note' : 'Add Note'}
               </Button>
             </Menu.Menu>
           </Menu>
         </div>
         <Form>
-          <Input className="note-title" focus placeholder='Title...'
-                 name="title" onChange={this.onInputChange}/>
-          <TextArea className="note-description" placeholder='Start writing and tell us more...'
+          <Input className="note-title" focus name="title"
+                 placeholder={this.isUpdating() ? selectedNote.title : 'Title...'}
+                 onChange={this.onInputChange}/>
+          <TextArea className="note-description"
+                    placeholder={this.isUpdating() ? selectedNote.description : 'Start writing and tell us more...'}
                     name="description"
                     onChange={this.onInputChange}
                     style={{minHeight: 100}} rows={12}/>

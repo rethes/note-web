@@ -2,13 +2,12 @@
 import React from 'react';
 
 // third-party libraries
-import {Button, Modal, Header, Image, Input} from 'semantic-ui-react';
+import {Button, Modal, Header, Image} from 'semantic-ui-react';
 
-class DeleteModals extends React.Component {
+class Modals extends React.Component {
   render() {
     const {
-      name, image, header, description, value, onSubmit, onInputChange, close, open, closeOnEscape, closeOnDimmerClick,
-      disabled, submitButton
+      name, image, header, description, onSubmit, close, open, closeOnEscape, closeOnDimmerClick
     } = this.props;
 
     return (
@@ -20,20 +19,18 @@ class DeleteModals extends React.Component {
       >
         <Modal.Header>{name}</Modal.Header>
         <Modal.Content image>
-          <Image wrapped size='small'
-                 src={image}/>
-          <Modal.Description>
+          <Image wrapped size='small' src={image}/>
+          <Modal.Description size='small' >
             <Header>{header}</Header>
             <p>{description}</p>
-            <Input onChange={onInputChange} placeholder={value}/>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={close}>
             Cancel
           </Button>
-          <Button color='green' onClick={onSubmit} disabled={disabled}>
-            {submitButton}
+          <Button color='green' onClick={onSubmit}>
+            Delete
           </Button>
         </Modal.Actions>
       </Modal>
@@ -41,4 +38,4 @@ class DeleteModals extends React.Component {
   }
 }
 
-export default DeleteModals;
+export default Modals;

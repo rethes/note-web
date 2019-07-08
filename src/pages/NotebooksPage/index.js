@@ -132,7 +132,7 @@ class NotebooksPage extends React.Component {
   };
 
   /**
-   * It deletes the selected note
+   * It deletes the selected notebook
    *
    * @returns {void}
    */
@@ -229,7 +229,7 @@ class NotebooksPage extends React.Component {
   };
 
   /**
-   * Renders the modal for adding or editing request types
+   * Renders the modal for adding or editing notebooks
    *
    * @returns {JSX}
    */
@@ -261,7 +261,7 @@ class NotebooksPage extends React.Component {
     return (
       <div className="notebook-container">
         <Menu secondary>
-          <Menu.Item classname="notelist-header"> My Notebook List ({notebookCount})</Menu.Item>
+          <Menu.Item className="notelist-header"> My Notebook List ({notebookCount})</Menu.Item>
           <Menu.Menu position='right'>
             <Button onClick={this.enableModal}>
               <Icon name='add'/>

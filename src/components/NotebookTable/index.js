@@ -13,7 +13,6 @@ import './NotebookTable.scss';
 import NotesListItem from '../NotesListItem';
 
 const NotebookTable = (props) => {
-
   const {id, title, notesCount, author, updatedAt, renderNotebookModal, notebookAction} = props;
 
   return (
