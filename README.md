@@ -1,5 +1,6 @@
-# note-web
+# Note-web
 This web application serves as a convenient window for note taking.
+Checkout [My Notes](https://mynotes-web.herokuapp.com) here.
 
 # Table of Contents
 

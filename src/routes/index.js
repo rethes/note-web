@@ -11,6 +11,7 @@ import NotebooksPage from "../pages/NotebooksPage";
 import NotesListPage from "../pages/NotesListPage";
 import DashboardPage from "../pages/DashboardPage";
 import NotesPage from "../pages/NotesPage";
+import NotebookNotesPage from "../pages/NotebookNotesPage";
 
 const Routes = () => (
   <Switch>
@@ -19,6 +20,7 @@ const Routes = () => (
     <Route exact path="/notes/:id" component={NotesPage}/>
     <Route exact path="/notes" component={NotesListPage}/>
     <Route exact path="/notebooks" component={NotebooksPage}/>
+    <Route exact path="/notebooks/:id" component={NotebookNotesPage}/>
     <Route component={PageNotFound}/>
   </Switch>
 );
