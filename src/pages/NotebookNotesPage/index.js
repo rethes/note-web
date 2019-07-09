@@ -79,7 +79,7 @@ class NotebookNotesPage extends React.Component {
     return (
       <div className="notebook-notes-container">
         <Menu secondary>
-          <Menu.Item classname="note-list-header">
+          <Menu.Item className="note-list-header">
             <Icon name='folder'/>
             {selectedNotebook.title}
           </Menu.Item>

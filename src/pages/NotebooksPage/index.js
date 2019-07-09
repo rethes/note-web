@@ -3,6 +3,7 @@ import React from 'react';
 
 // third-party libraries
 import {Menu, Table, Button, Icon, Message} from 'semantic-ui-react';
+import {Link} from "react-router-dom";
 import * as moment from 'moment';
 import cuid from 'cuid';
 
@@ -42,7 +43,7 @@ class NotebooksPage extends React.Component {
     let value = event.target.value;
 
     this.setState({
-      ...this.state,
+        ...this.state,
         notebook: {
           id: this.state.notebook.id,
           title: value,
@@ -177,6 +178,12 @@ class NotebooksPage extends React.Component {
    */
   notebookAction = notebook => (
     <>
+      <Button>
+        <Link to={`/notebooks/${notebook.id}/notes/new`} replace>
+          <Icon name="add"/>
+          Add Note
+        </Link>
+      </Button>
       <Button onClick={() => this.populateEditModal(notebook)}>
         <Icon name="edit"/>
         Edit
