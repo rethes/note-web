@@ -53,7 +53,7 @@ class NotesListPage extends React.Component {
     return (
       <div className="note-list-container">
         <Menu secondary>
-          <Menu.Item classname="note-list-header" name='All Notes'/>
+          <Menu.Item className="note-list-header" name='All Notes'/>
           <Menu.Menu position='right'>
             <Menu.Item>
               {noteCount} Notes

@@ -22,7 +22,7 @@ class SideBar extends React.Component {
         </Link>
         <Divider/>
 
-        <Link to="/notes/new" replace>
+        <Link to="/notebooks/1/notes/new" replace>
           <SideBarItem label='New Note' icon='add'/>
         </Link>
         <Divider/>

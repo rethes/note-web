@@ -17,6 +17,7 @@ class NewNotePage extends React.Component {
     notes: {
       title: '',
       description: '',
+      notebookId: '',
     },
     disable: true
   };
@@ -32,7 +33,11 @@ class NewNotePage extends React.Component {
     const {name, value} = event.target;
 
     this.setState({
-      notes: {...this.state.notes, [name]: value}
+      notes: {
+        ...this.state.notes,
+        [name]: value,
+        notebookId: this.props.match.params.id,
+      }
     });
 
     this.handleDisableButton()
@@ -63,6 +68,17 @@ class NewNotePage extends React.Component {
   };
 
   /**
+   * Get a notebook
+   *
+   * @returns {object}
+   */
+  getANotebook = () => {
+    return data.notebooks.find((notebook) => {
+      return notebook.id === this.props.match.params.id;
+    });
+  };
+
+  /**
    * This method handles creating a note.
    *
    * @returns {void}
@@ -70,12 +86,10 @@ class NewNotePage extends React.Component {
   onSubmit = () => {
     const {notes} = this.state;
 
-    const notebookId = "1";
-
     const newNote = {
-      notebookId,
       id: cuid(),
       title: notes.title,
+      notebookId: notes.notebookId,
       description: notes.description,
       createdAt: moment().format(),
       updatedAt: moment().format(),
@@ -87,14 +101,15 @@ class NewNotePage extends React.Component {
   };
 
   render() {
+    const selectedNotebook = this.getANotebook();
 
     return (
       <div className="new-note-container">
         <div className="note-container">
           <Menu secondary className="note-menu">
             <Icon className="note-menu-folder" name='folder'/>
-            <Menu.Item icon='folder' className="note-item">
-              Notes
+            <Menu.Item className="note-item">
+              {selectedNotebook.title}
             </Menu.Item>
           </Menu>
           <Menu pointing secondary className="note-menu">

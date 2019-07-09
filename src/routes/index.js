@@ -16,7 +16,7 @@ import NotebookNotesPage from "../pages/NotebookNotesPage";
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={DashboardPage}/>
-    <Route exact path="/notes/new" component={NewNotePage}/>
+    <Route exact path="/notebooks/:id/notes/new" component={NewNotePage}/>
     <Route exact path="/notes/:id" component={NotesPage}/>
     <Route exact path="/notes" component={NotesListPage}/>
     <Route exact path="/notebooks" component={NotebooksPage}/>
