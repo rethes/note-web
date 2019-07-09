@@ -55,7 +55,7 @@ class DashboardPage extends React.Component {
               </Header.Content>
             </Header>
             <List>
-              <List.Item as='a' href="/notes/new">
+              <List.Item as='a' href="/notebooks/1/notes/new">
                 Add a New Note
               </List.Item>
               <List.Item as='a' href="/notes">

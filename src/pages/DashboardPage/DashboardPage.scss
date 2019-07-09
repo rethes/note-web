@@ -1,9 +1,7 @@
 .dashboard-container {
-   margin-left: 17rem;
-   padding-left: 17.9375rem;
-   padding-right: 17.9375rem;
-   padding-top: 5rem;
- }
+  margin-left: 17rem;
+  padding: 4rem 17.9375rem;
+}
 
 .dashboard-header {
   font-size: 30px;
@@ -12,4 +10,9 @@
 
 .dashboard-image {
   padding-left: 12rem;
+}
+
+img.ui.image {
+  display: block;
+  height: 35rem;
 }
