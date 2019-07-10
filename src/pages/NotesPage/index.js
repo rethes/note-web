@@ -35,7 +35,6 @@ class NotesPage extends React.Component {
    * @param{object} selectedNote
    */
   populateEditModal = (selectedNote) => {
-
     this.setState({
       ...this.state,
       note: {
@@ -217,7 +216,7 @@ class NotesPage extends React.Component {
     return <PageNotFound/>
   };
 
-  render() {
+  render() {=
     return (
       <div className="notes-page-container">
         {this.renderNoteMenu()}
