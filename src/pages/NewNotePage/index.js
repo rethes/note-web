@@ -73,11 +73,8 @@ class NewNotePage extends React.Component {
    * @returns {void}
    */
 
-  redirectToViewNotesPage = (id) => {
-    return this.props.history.push(`/notes/${id}`);
-    // this.props.history.goBack();
-
-     // this.props.history.push(`/notes`);
+  redirectToViewNotesPage = () => {
+    return this.props.history.push(`/notes`);
   };
 
   /**
@@ -128,7 +125,7 @@ class NewNotePage extends React.Component {
       data.notes.push(newNote);
     }
 
-    this.redirectToViewNotesPage(notes.id);
+    this.redirectToViewNotesPage();
   };
 
   /**

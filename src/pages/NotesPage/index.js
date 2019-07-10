@@ -35,7 +35,6 @@ class NotesPage extends React.Component {
    * @param{object} selectedNote
    */
   populateEditModal = (selectedNote) => {
-
     this.setState({
       ...this.state,
       note: {
